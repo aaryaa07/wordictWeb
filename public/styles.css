@@ -1,0 +1,87 @@
+html {
+    scroll-behavior: smooth;
+  }
+  .jumbo{
+      background-color: #eede53;
+
+  }
+body{
+    background-color:#FCE944 ;
+}
+h1{
+    padding-top: 5%;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 80px;
+ 
+    
+    
+}
+h2{
+    font-size: 40px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+p{
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+.reg-buttons{
+align-content: center;
+}
+.text2{
+    color:white;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 25px;
+}
+.text1{
+    color:black;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 25px;
+
+}
+.side-text{
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 5%;
+}
+.a-text{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 5%;
+
+
+}
+.main-head{
+    font-size: 180px;
+}
+
+.btn1{
+    margin-right: 3%;
+}
+.form-text{
+    
+    font-size: 20px;
+}
+
+input {
+    padding:10px;
+      font-family: FontAwesome,  'Montserrat';
+      
+      font-weight: 600;
+      color: black;
+      text-decoration: inherit;
+  }
+form{
+    padding-left: auto;
+}
+.logo{
+    margin-left: auto;
+    margin-bottom: auto;
+}
+
+
