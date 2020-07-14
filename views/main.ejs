@@ -28,7 +28,7 @@
                     placeholder=" &#xf002  I want to know the meaning of..">
                 <br>
 
-                <button type="submit" class="btn btn-dark btn-md text3" formaction="/main"><span>search</span></button>
+                <button type="submit" class="btn btn-dark btn-md text3" formaction="/main"><span>define</span></button>
             
             </form>
         </div>
@@ -36,12 +36,12 @@
     </div>
     <br><br><br>
 
-    <div class="container">
+    <div class="container row">
        <% for(var i=0;i<wl.length;i++){%>
-            <div class="card text-center">
+            <div class="col-lg-3 card  text-center">
                 <%= wl[i] %> <br>
                <div class="small-text"><%= ml[i] %></div>
-            </div>
+       </div>
     
 
        <% }%>

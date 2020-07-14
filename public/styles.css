@@ -105,28 +105,48 @@ form{
     margin-left: auto;
     margin-bottom: auto;
 }
+
+
 .card{
     height:250px;
     width:250px;
-    font-family: 'Montserrat';
-    font-size: 30px;
+    
+        font-family: 'Montserrat';
+        font-size: 30px;
+       
+    
+    
     background-color: #eede53;
     font-weight: 600;
-    margin:10px 10px 10px 10px;
-    display: inline-block;
+    margin:10px;
+    padding-top: 80px;
+    
+    position: relative;
     
 
 }
 .card:hover{
-    background-color: #FCE944;
+    background-color: #343A40 ;
+    color:white;
 }
+
+.card:hover .small-text{
+    visibility:visible;
+    
+
+}
+
 #hint-text{
     font-size:15px;
 }
+
+
 .small-text{
-    font-size:10px;
+    font-size:13px;
     font-family: 'Montserrat';
+    visibility: hidden;
 
 }
+
 
 

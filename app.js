@@ -22,12 +22,13 @@ const wordsSchema = new mongoose.Schema({
 const User = mongoose.model("User", usersSchema);
 const Word = mongoose.model("Word", wordsSchema);
 var words = [];
+var uflag;
 var meanings = [];
 var word;
 var suser;
-var dictionary = [];
+
 var wordData;
-var foundwords = [];
+
 var foundmeanings = [];
 
 
@@ -36,29 +37,40 @@ app.get("/", function (req, res) {
     res.render("home", { varname: name });
 })
 app.get("/main", function (req, res) {
-
+   
+    
 
     if (suser) {
-
-        console.log(words.length + "\n");
-        if (words.length == 0) {
-            // foundwords = [];
-            // foundmeanings = [];
-            for (var i = 0; i < suser.userwords.length; i++) {
-                words.push(suser.userwords[i]);
-                foundmeanings.push(Word.find({ word: suser.userwords[i] }).select('definitions'));
-
-
-            }
-            console.log(words);
-            console.log(meanings);
-            // res.render("main", { wl: foundwords, ml: foundmeanings });
-
-        }
-        console.log(words.length + "\n");
-
-
+      
         res.render("main", { wl: words, ml: foundmeanings });
+        console.log("in /main "+words);
+        console.log(foundmeanings);
+
+        // console.log(words.length + "\n");
+    
+        // for (var i = 0; i < suser.userwords.length; i++) {
+           
+            
+        //    Word.findOne({word:suser.userwords[i]},function(err,foundWord){
+        //        if(!err){
+        //            foundmeanings.push(foundWord.definitions);
+        //        }
+        //        else{
+        //            console.log(err);
+        //        }
+
+        //    })
+
+
+        // }
+     
+        
+
+        
+        
+
+
+        
         // res.redirect("/main");
 
 
@@ -94,8 +106,25 @@ app.post("/main", function (req, res) {
 
     }
     else {
+        meanings=[];
         // var varname;
-        words.push(word);
+      
+
+
+        var uuid = require("uuid");
+        var id = uuid.v4();
+
+
+
+        const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+        https.get(url,function (response) {
+
+            console.log(response.statusCode);
+            if(response.statusCode>400){
+                Word.
+                res.send("Please try again after a while");
+            }
+              words.push(word);
         User.updateOne({ email: suser.email }, { $set: { userwords: words } }, function (err) {
             if (!err) {
                 console.log("updated");
@@ -106,17 +135,6 @@ app.post("/main", function (req, res) {
             }
 
         });
-
-
-        var uuid = require("uuid");
-        var id = uuid.v4();
-
-
-
-        const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
-        https.get(url, function (response) {
-
-            console.log(response.statusCode);
             response.on("data", function (data) {
                 wordData = JSON.parse(data);
                 console.log(wordData);
@@ -135,22 +153,25 @@ app.post("/main", function (req, res) {
                     if (!err) {
                         console.log("word Data added to database");
                         console.log(words);
-                        foundwords = [];
+                        
 
                         // words.forEach(function (shabd) {
 
                         // });
 
-
+                        
                         Word.findOne({ word: word }, function (err, foundWord) {
                             if (!err) {
                                 console.log(foundWord.word);
                                 // foundwords.push(foundWord.word);
                                 // console.log(foundwords);
-
+                                
                                 foundmeanings.push(foundWord.definitions);
                                 console.log(foundmeanings);
                                 console.log(foundWord.definitions);
+                                if(foundmeanings.length===words.length){
+                                    res.render("main",{wl:words,ml:foundmeanings});
+                                }
                             }
                             else {
                                 console.log(err);
@@ -158,9 +179,11 @@ app.post("/main", function (req, res) {
                         });
 
 
-
+                        // console.log("before render(words): "+words+" and meanings"+foundmeanings);
+                        // console.log("render time");
                         // res.render("main", { wl: words, ml: foundmeanings });
-                        res.redirect("/main");
+                        // // res.redirect("/main");
+                        // console.log("rendered");
 
 
 
@@ -332,7 +355,51 @@ app.post("/login", function (req, res) {
                     suser = foundUser;
                     console.log(suser);
                     words = [];
-                    res.redirect("/main");
+                    foundmeanings=[];
+                    meanings=[];
+                  uflag=1;
+                  console.log(suser.userwords.length);
+                  if(suser.userwords.length==0){
+                      res.redirect("/main");
+                  }
+                  else{
+                  if(uflag===1){
+                      for(var i=0;i<suser.userwords.length;i++){
+                        words.push(suser.userwords[i]);
+                      }
+                      console.log(words);
+                    for(var j=0;j<words.length;j++)
+                    {
+                        console.log(j);
+                        
+                        Word.findOne({word:words[j]},function(err,usr){
+                            console.log(words[j]);
+                            
+                            console.log("in login "+usr.definitions);
+                            foundmeanings.push(usr.definitions);
+                            console.log(foundmeanings);
+                            if(foundmeanings.length===words.length){
+                                console.log(foundmeanings);
+                                uflag=0;
+                                console.log(i);
+                                 res.redirect("/main");
+                                 console.log("sent");
+                               
+                            
+                            }
+
+                        
+                           if(err){
+                               console.log(err);
+                           }
+                        });
+                    }
+                }
+                    
+
+                }
+                  
+                    
                 }
                 else {
 
