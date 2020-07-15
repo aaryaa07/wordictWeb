@@ -34,11 +34,14 @@ var foundmeanings = [];
 
 app.get("/", function (req, res) {
     var name = "WORDict"
+    suser={};
+    console.log(suser);
     res.render("home", { varname: name });
 })
 app.get("/main", function (req, res) {
    
-    
+    if(suser.email==="")
+    res.redirect("/");
 
     if (suser) {
       
@@ -80,6 +83,7 @@ app.get("/main", function (req, res) {
 
     }
     else {
+        if(suser.email==="")
         res.redirect("/");
     }
 
@@ -120,12 +124,18 @@ app.post("/main", function (req, res) {
         https.get(url,function (response) {
 
             console.log(response.statusCode);
-            if(response.statusCode>400){
-                Word.
-                res.send("Please try again after a while");
+            if(response.statusCode===404){
+                res.redirect("/api-err")
             }
-              words.push(word);
-        User.updateOne({ email: suser.email }, { $set: { userwords: words } }, function (err) {
+             if(response.statusCode===429){
+                
+                res.redirect("/api-err");
+            }
+             
+        
+            if(response.statusCode===200)
+           {  words.push(word);
+               User.updateOne({ email: suser.email }, { $set: { userwords: words } }, function (err) {
             if (!err) {
                 console.log("updated");
 
@@ -135,7 +145,7 @@ app.post("/main", function (req, res) {
             }
 
         });
-            response.on("data", function (data) {
+               response.on("data", function (data) {
                 wordData = JSON.parse(data);
                 console.log(wordData);
                 wordData = wordData[0]["meanings"];
@@ -193,6 +203,7 @@ app.post("/main", function (req, res) {
                         // res.send(err);
                     }
                 });
+            
 
 
 
@@ -244,7 +255,7 @@ app.post("/main", function (req, res) {
 
 
 
-            });
+            });}
             // response.on('end', function () {
 
             //     Word.findOne({word:})
@@ -270,6 +281,7 @@ app.post("/main", function (req, res) {
 
 
         });
+    
 
 
 
@@ -286,22 +298,35 @@ app.post("/main", function (req, res) {
 app.get("/check", function (req, res) {
     res.render("check", { meaningList: meanings });
 })
+app.get("/api-err",function(req,res){
+    res.render("api_err");
+})
 
 app.get("/mismatch", function (req, res) {
     res.render("mismatch");
 })
 
 app.get("/login", function (req, res) {
+    suser={};
+    console.log(suser);
     res.render("login");
 })
 
 app.post("/", function (req, res) {
     console.log(req.body);
+    if(req.body.pass1.length===0||req.body.pass2.length===0){
+        console.log("Password error");
+        res.redirect("/mismatch");
+    
+    }
+    else{
     var email = req.body.username;
     var password = md5(req.body.pass1);
     var confirm = md5(req.body.pass2);
+    console.log(password.length);
+
     if (password != confirm) {
-        console.log("passwords mismatch")
+        console.log("passwords error")
         res.redirect("/mismatch");
         return;
     }
@@ -336,11 +361,12 @@ app.post("/", function (req, res) {
         }
     })
 
-
+    }
 
 
 
 })
+
 app.post("/login", function (req, res) {
     console.log(req.body)
     var email = req.body.username;
@@ -354,7 +380,9 @@ app.post("/login", function (req, res) {
                 if (foundUser.password == password) {
                     suser = foundUser;
                     console.log(suser);
+                    console.log(typeof(suser));
                     words = [];
+                    cords=[];
                     foundmeanings=[];
                     meanings=[];
                   uflag=1;
@@ -365,25 +393,28 @@ app.post("/login", function (req, res) {
                   else{
                   if(uflag===1){
                       for(var i=0;i<suser.userwords.length;i++){
-                        words.push(suser.userwords[i]);
+                        cords.push(suser.userwords[i]);
                       }
-                      console.log(words);
-                    for(var j=0;j<words.length;j++)
+                      console.log(cords);
+                    for(var j=0;j<cords.length;j++)
                     {
+                        console.log(cords[j]);
                         console.log(j);
                         
-                        Word.findOne({word:words[j]},function(err,usr){
-                            console.log(words[j]);
+                        
+                        Word.findOne({word:cords[j]},function(err,usr){
+                            // console.log(words[j]);
                             
                             console.log("in login "+usr.definitions);
+                            words.push(usr.word);
                             foundmeanings.push(usr.definitions);
                             console.log(foundmeanings);
-                            if(foundmeanings.length===words.length){
+                            if(foundmeanings.length===cords.length){
                                 console.log(foundmeanings);
                                 uflag=0;
                                 console.log(i);
                                  res.redirect("/main");
-                                 console.log("sent");
+                                //  console.log("sent");
                                
                             
                             }
