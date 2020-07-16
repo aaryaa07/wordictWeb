@@ -147,6 +147,9 @@ form{
     visibility: hidden;
 
 }
+.linear-form{
+    display: inline;
+}
 
 
 
