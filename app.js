@@ -9,7 +9,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect("mongodb://localhost:27017/wordictDB",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB?retryWrites=true&w=majority",{useNewUrlParser:true});
 const usersSchema = new mongoose.Schema({
     email: String,
     password: String,
