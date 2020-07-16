@@ -187,7 +187,7 @@ app.post("/main", function (req, res) {
                             else {
                                 console.log(err);
                             }
-                        }).catch(err => console.log(err));
+                        })
 
 
                         // console.log("before render(words): "+words+" and meanings"+foundmeanings);
@@ -203,7 +203,7 @@ app.post("/main", function (req, res) {
                         console.log(err);
                         // res.send(err);
                     }
-                }).catch(err => console.log(err));
+                })
             
 
 
@@ -356,11 +356,11 @@ app.post("/", function (req, res) {
                         // res.send("created account Successfully");
                         res.redirect("/login");
                     }
-                }).catch(err => console.log(err));
+                })
 
             }
         }
-    }).catch(err => console.log(err));
+    })
 
     }
 
@@ -424,7 +424,7 @@ app.post("/login", function (req, res) {
                            if(err){
                                console.log(err);
                            }
-                        }).catch(err => console.log(err));
+                        })
                     }
                 }
                     
@@ -444,7 +444,7 @@ app.post("/login", function (req, res) {
             }
 
         }
-    }).catch(err => console.log(err));
+    })
 })
 
 let port=process.env.PORT;
