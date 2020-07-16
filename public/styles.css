@@ -156,5 +156,11 @@ form{
 .center-btn{
     margin-left: 18px;
 }
+.form-div{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
 
 
