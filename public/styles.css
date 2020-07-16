@@ -151,7 +151,10 @@ form{
     display: inline;
 }
 #cont-mar{
-    margin-left: 85px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: auto;
+    padding-right: auto;
 }
 .center-btn{
     margin-left: 18px;
