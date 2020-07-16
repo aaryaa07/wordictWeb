@@ -170,9 +170,14 @@ form{
     display: inline-block;
 }
 .slight{
+    font-family: 'Montserrat';
     padding-right: 10px;
     font-size: 45px;
     font-weight: 600;
 }
-
+.light{
+       
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
 
