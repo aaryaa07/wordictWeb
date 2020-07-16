@@ -448,7 +448,7 @@ app.post("/login", function (req, res) {
 })
 
 let port=process.env.PORT;
-if(port==NULL||port=="")
+if(!port)
    { port=3000;}
 
 
