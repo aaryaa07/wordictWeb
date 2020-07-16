@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 // ?retryWrites=true&w=majority
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB",{ useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB",{ useUnifiedTopology: true ,useNewUrlParser:true}).catch(err => console.log(err));
 const usersSchema = new mongoose.Schema({
     email: String,
     password: String,
