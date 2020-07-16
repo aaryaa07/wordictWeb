@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 // ?retryWrites=true&w=majority
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB",{ useUnifiedTopology: true });
 const usersSchema = new mongoose.Schema({
     email: String,
     password: String,
@@ -447,9 +447,11 @@ app.post("/login", function (req, res) {
     })
 })
 
+let port=process.env.PORT;
+if(port==NULL||port=="")
+   { port=3000;}
 
 
-
-app.listen(process.env.PORT, function () {
-    console.log("Server ready at localhost:3000")
+app.listen(port, function () {
+    console.log("Server ready ");
 })
