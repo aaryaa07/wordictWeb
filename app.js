@@ -444,8 +444,8 @@ app.post("/login", function (req, res) {
             }
 
         }
-    })
-}).catch(err => console.log(err));
+    }).catch(err => console.log(err));
+})
 
 let port=process.env.PORT;
 if(!port)
