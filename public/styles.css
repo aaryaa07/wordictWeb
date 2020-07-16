@@ -150,6 +150,9 @@ form{
 .linear-form{
     display: inline;
 }
+#cont-mar{
+    margin-left: 15px;
+}
 
 
 
