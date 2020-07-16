@@ -9,7 +9,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect("mongodb://localhost:27017/wordictDB")
+mongoose.connect("mongodb://localhost:27017/wordictDB",{useNewUrlParser:true});
 const usersSchema = new mongoose.Schema({
     email: String,
     password: String,
@@ -186,7 +186,7 @@ app.post("/main", function (req, res) {
                             else {
                                 console.log(err);
                             }
-                        });
+                        })
 
 
                         // console.log("before render(words): "+words+" and meanings"+foundmeanings);
@@ -202,7 +202,7 @@ app.post("/main", function (req, res) {
                         console.log(err);
                         // res.send(err);
                     }
-                });
+                })
             
 
 
@@ -423,7 +423,7 @@ app.post("/login", function (req, res) {
                            if(err){
                                console.log(err);
                            }
-                        });
+                        })
                     }
                 }
                     
@@ -449,6 +449,6 @@ app.post("/login", function (req, res) {
 
 
 
-app.listen(3000, function () {
+app.listen(process.env.port||3000, function () {
     console.log("Server ready at localhost:3000")
 })
