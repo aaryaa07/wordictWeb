@@ -147,6 +147,10 @@ form{
     visibility: hidden;
 
 }
+.sub-txt{
+    font-family: 'Montserrat';
+    
+}
 .linear-form{
     display: inline;
 }
