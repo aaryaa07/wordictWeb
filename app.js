@@ -449,6 +449,6 @@ app.post("/login", function (req, res) {
 
 
 
-app.listen(process.env.port||3000, function () {
+app.listen(process.env.PORT||3000, function () {
     console.log("Server ready at localhost:3000")
 })
