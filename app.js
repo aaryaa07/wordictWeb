@@ -8,8 +8,9 @@ const md5 = require("md5")
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+// ?retryWrites=true&w=majority
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB?retryWrites=true&w=majority",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-arya:arya@cluster0.ob7wg.mongodb.net/wordictDB",{useNewUrlParser:true});
 const usersSchema = new mongoose.Schema({
     email: String,
     password: String,
