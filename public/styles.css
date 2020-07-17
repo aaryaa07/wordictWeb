@@ -147,6 +147,9 @@ form{
     visibility: hidden;
 
 }
+.rt-button{
+    margin-left: 2px;
+}
 .sub-txt{
     font-family: 'Montserrat';
     font-weight: 600;
