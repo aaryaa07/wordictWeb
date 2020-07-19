@@ -150,9 +150,7 @@ app.post("/main", function (req, res) {
                 wordData = JSON.parse(data);
                 console.log(wordData);
                 wordData = wordData[0]["meanings"];
-                // const worda=wordData.word;
-                // let i = 1;
-                // wordData.forEach( (meaning)=>{
+                
                 meanings.push(wordData[0]["definitions"][0]["definition"]);
                 // });
                 console.log(meanings);
@@ -166,16 +164,13 @@ app.post("/main", function (req, res) {
                         console.log(words);
                         
 
-                        // words.forEach(function (shabd) {
-
-                        // });
+                     
 
                         
                         Word.findOne({ word: word }, function (err, foundWord) {
                             if (!err) {
                                 console.log(foundWord.word);
-                                // foundwords.push(foundWord.word);
-                                // console.log(foundwords);
+                             
                                 
                                 foundmeanings.push(foundWord.definitions);
                                 console.log(foundmeanings);
@@ -190,14 +185,6 @@ app.post("/main", function (req, res) {
                         })
 
 
-                        // console.log("before render(words): "+words+" and meanings"+foundmeanings);
-                        // console.log("render time");
-                        // res.render("main", { wl: words, ml: foundmeanings });
-                        // // res.redirect("/main");
-                        // console.log("rendered");
-
-
-
                     }
                     else {
                         console.log(err);
@@ -210,59 +197,13 @@ app.post("/main", function (req, res) {
 
 
 
-                // words.forEach(function(shabd){
-                //     console.log(shabd);
-                //     Word.findOne({word:shabd},function(err,foundWord){
-                //         if(!err){
-                //             console.log(foundWord);
-                //             foundwords.push(foundWord.word);
-                //             foundmeanings.push(foundWord.definitions[0]);
-                //             console.log(foundmeanings);
-                //         }
-                //         else{
-                //             console.log(err);
-                //         }
-                //     });
-                //     console.log("found Meanings Array \n"+foundmeanings);
-                // });
-
-                // if (words.length > 0) {
-                //     foundwords = [];
-                //     foundmeanings = [];
-                //     console.log(foundmeanings);
-                //     // words.forEach(function (shabd) {
-                //     //     console.log(shabd);
-
-
-                //     //     Word.findOne({ word: shabd }, function (err, foundWord) {
-                //     //         if (!err)
-                //     //         {console.log("Word: "+ foundWord.word+"\n"+"Meaning "+foundWord.definitions[0] );
-
-                //     //             foundwords.push(foundWord.word);
-                //     //             foundmeanings.push(foundWord.definitions[0]);
-                //     //             console.log(foundmeanings);
-                //     //         }
-                //     //         else {
-                //     //             res.send(err);
-                //     //         }
-                //     //     });
-                //     // });
-
-
-                // }
-                // res.render("main", { wl: foundwords, ml: foundmeanings });
 
 
 
 
 
             });}
-            // response.on('end', function () {
-
-            //     Word.findOne({word:})
-
-            // });
-
+         
 
 
 
@@ -286,8 +227,6 @@ app.post("/main", function (req, res) {
 
 
 
-
-        // console.log(word);
 
 
 
