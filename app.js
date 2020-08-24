@@ -34,6 +34,7 @@ var foundmeanings = [];
 
 
 app.get("/", function (req, res) {
+    
     var name = "WORDict"
     suser={};
     console.log(suser);
@@ -89,10 +90,10 @@ app.get("/main", function (req, res) {
     }
 
 })
-app.patch("/main", function (req, res) {
+// app.patch("/main", function (req, res) {
 
 
-})
+// })
 app.post("/main", function (req, res) {
 
 
@@ -108,7 +109,6 @@ app.post("/main", function (req, res) {
     })
     if (flag === -1) {
         res.send("word is already present");
-
     }
     else {
         meanings=[];
@@ -253,7 +253,7 @@ app.get("/login", function (req, res) {
 })
 
 app.post("/", function (req, res) {
-    console.log(req.body);
+    
     if(req.body.pass1.length===0||req.body.pass2.length===0){
         console.log("Password error");
         res.redirect("/mismatch");
@@ -271,6 +271,7 @@ app.post("/", function (req, res) {
         return;
     }
 
+    
     User.findOne({ email: email }, function (err, foundUser) {
         if (err) {
             console.log(err);
@@ -280,6 +281,9 @@ app.post("/", function (req, res) {
                 if (foundUser.password == password) {
                     console.log("user already exists, login instead");
                     res.send("You already have an account");
+                }
+                else{
+                    res.send("Your account already exists");
                 }
             }
             else {
@@ -391,6 +395,7 @@ if(!port)
    { port=3000;}
 
 
-app.listen(port, function () {
+app.listen(port, function (res) {
     console.log("Server ready ");
+    
 })
